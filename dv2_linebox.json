@@ -1,0 +1,96 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/eahm0005/FIT3179DV2/main/smoking_DV2_editedregions.csv"},
+  "params": 
+    [
+      {"name": "yearselect",
+      "value": 2012,
+      "bind": {
+          "input": "range",
+          "min": 1980,
+          "max": 2012,
+          "step": 1,
+          "name": "Select Year: "}}], 
+
+  "vconcat": [{
+  "title": "Average Cigarettes Smoked Daily per Region",
+  "height": 360,
+  "params": [
+    {"name": "regionlegend", 
+    "select": {"type": "point", "fields": ["Region"]},
+    "bind": "legend"}
+  ],
+  "encoding": {
+    "x": {"field": "Year"},
+    "y": {"aggregate":"mean", "field": "DailyCigarettes", "type": "quantitative", "title": "Average Daily Cigarettes"},
+    "color": {"field": "Region", "type": "nominal"},
+    "tooltip": [
+      {"field": "Region", "type": "nominal"},
+      {"field": "Year"},
+      {"field": "DailyCigarettes", "aggregate":"mean", "type":"quantitative", "title": "Average Daily Cigarettes", "format": ".1f"}],
+    "opacity": {
+    "condition": {"param": "regionlegend", "value": 1},
+    "value": 0.1
+    }
+    },
+
+   "mark": {
+    "type": "line",
+    "point": {
+      "filled": false,
+      "fill": "white"
+    }
+  }},
+
+    {
+    "title": "Box Plot of Countries' Average Daily Cigarette Consumption, by Region",
+    "data": {"url": "https://raw.githubusercontent.com/eahm0005/FIT3179DV2/main/smoking_DV2_noworld.csv"},
+     "width": 666,
+     "transform": [
+      {"filter": "datum.Year == yearselect"}
+     ],
+     "layer": [{
+     "mark": {"type": "boxplot"},
+     "encoding": {
+      "y": {"field": "Region", "type": "nominal"},
+      "x": {
+      "field": "DailyCigarettes",
+      "type": "quantitative",
+      "title": "Average Daily Cigarettes"},
+     "color": {"field": "Region", "type": "nominal"},
+     "opacity": {
+      "condition": {"param": "regionlegend", "value": 1},
+      "value": 0.1
+      }
+    }
+    }, 
+    {
+      "transform": [{"aggregate": [{
+        "op": "median",
+        "field": "DailyCigarettes",
+        "as":"AvgCigs"
+      }]}],
+      "layer":[{ "mark": "rule",
+      "encoding": {
+        "x": {
+          "field": "AvgCigs",
+          "type": "quantitative"
+        },
+        "color": {"value": "red"},
+        "size": {"value": 2},
+        "tooltip": [{"field": "AvgCigs", "title": "Global Median Daily Average: "}]
+      }}, 
+      {"mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "dx": -200,
+        "dy": -100,
+        "y":"height",
+        "text": "Red Line = Global Median",
+        "fontWeight":100
+      }}]
+    }]
+  }
+  ]
+}

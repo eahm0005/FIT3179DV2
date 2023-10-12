@@ -1,0 +1,206 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/eahm0005/FIT3179DV2/main/smoking_DV2_editedregions.csv"
+        },
+    "params": [{
+    "name": "Region_selection",
+    "bind": {
+            "input": "select",
+            "options": 
+            [null, 
+            "Asia",
+            "Africa",
+            "Americas",
+            "Europe",
+            "Oceania"],
+        "labels": [
+            "Show All",
+            "Asia",
+            "Africa",
+            "Americas",
+            "Europe",
+            "Oceania"
+        ],
+        "name": "Select Region: "}
+    },
+    {"name": "Year_selection",
+    "value": 2012,
+    "bind": {
+        "input": "range",
+        "min": 1980,
+        "max": 2012,
+        "step": 1,
+        "name": "Select Year: "}}],
+    "vconcat": [
+    {    
+    "width": 1050,
+    "height": 450, 
+    "title": "Percentage of Smokers in Every Country's Population",
+    "data": {
+        "url": "https://raw.githubusercontent.com/eahm0005/FIT3179DV2/main/ne_110m.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+        },
+    "projection": {"type": "equalEarth"},
+    "layer":[
+        { 
+          "transform": [
+          {"calculate": "'No available data for ' + datum.properties.NAME", "as": "note"}
+        ],
+        "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+        "encoding": {
+          "tooltip": {
+            "field": "note"
+          }
+        }
+      },
+      {"data": {
+        "url": "https://raw.githubusercontent.com/eahm0005/FIT3179DV2/main/ocean_data.topojson",
+        "format": {"type": "topojson", "feature": "oceans"}
+        },
+        "mark": {"type": "geoshape", "fill": "skyblue"}
+      },
+      { "mark": {"type": "geoshape", "stroke": "grey"},
+        "data": {
+        "url": "https://raw.githubusercontent.com/eahm0005/FIT3179DV2/main/smoking_DV2_editedregions.csv"
+        },
+        "transform": [
+          {
+            "lookup": "Country",
+            "from": {
+              "data": {
+                "url": "https://raw.githubusercontent.com/eahm0005/FIT3179DV2/main/ne_110m.topojson",
+                "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+              },
+              "key": "properties.NAME"
+            },
+            "as": "geo"
+          },
+          {"filter": "datum.Year == Year_selection"}
+        ],
+        "encoding": {
+          "shape": {"field": "geo", "type": "geojson"},
+          "color": {
+            "field": "PercentageTotal",
+            "title": "% of Population Smoking",
+            "type": "quantitative",
+            "scale": {
+              "type": "log",
+              "scheme":"orangered"
+            }
+          },
+          "tooltip": [
+            {"field": "Country", "type": "nominal", "title": "Country"},
+            {"field": "Region", "type": "nominal"},
+            {"field": "PercentageTotal", "type": "quantitative", 
+              "title": "% of Smokers in Population", "format": ".1f"},
+            {"field": "SmokersTotal", "type": "quantitative", 
+              "title": "Amount of Smokers"}
+          ]
+        }
+      }]
+    },
+    {
+      "title": "Countries with the Top 10 Highest Smoking Population Portion and Daily Average Cigarette Consumption",
+        "hconcat": [
+            {
+                "height": 250,
+                "width": 400,
+                "transform": [
+                  {"filter": "datum.Year == Year_selection"},
+                  {"filter": "Region_selection == null || datum.Region == Region_selection"},
+                  {"window": [{
+                    "field": "PercentageTotal",
+                    "op": "rank",
+                    "as": "rank"
+                    }], 
+                  "sort": [{"field": "PercentageTotal", "order": "descending"}]},
+                  {"filter": "datum.rank <= 10"}
+                ],
+                "encoding": {
+                  "color": {"value": "#ffa500"},
+                  "x": {
+                      "aggregate": "max", 
+                      "field": "PercentageTotal",
+                      "type": "quantitative",
+                      "title": "% of Smokers"
+                  },
+                  "y": {
+                      "field": "Country",
+                      "type": "nominal",
+                      "sort": "-x",
+                      "title": ""
+                  }
+                },
+                "layer": [{"mark": {"type": "bar"},
+                                    "encoding": 
+                                      {"tooltip": [{"field": "Country", "type":"nominal"},
+                                                   {"field": "Region", "type": "nominal"},
+                                                   {"field": "Year", "type": "ordinal"},
+                                                   {"field": "PercentageTotal", "type": "quantitative",
+                                                        "format": ".1f", "title": "% of Population Smoking"},
+                                                   {"field": "SmokersTotal", "type": "quantitative", 
+                                                        "title": "Total Smokers"}]}}, 
+            
+                          {"mark": {"type": "text",
+                                    "align": "left",
+                                    "dx": 1},
+                                    "encoding":{"text": {"field": "PercentageTotal", 
+                                                "type":"quantitative",
+                                                "format": ".1f"},
+                                                "color": {"value": "#000000"}}
+                        }] 
+            },
+            
+            {
+                "height": 250,
+                "width": 400,
+                "transform": [
+                  {"filter": "datum.Year == Year_selection"},
+                  {"filter": "Region_selection == null || datum.Region == Region_selection"},
+                  {"window": [{
+                    "field": "DailyCigarettes",
+                    "op": "rank",
+                    "as": "rank"
+                    }], 
+                  "sort": [{"field": "DailyCigarettes", "order": "descending"}]},
+                  {"filter": "datum.rank <= 10"}
+                ],
+                "encoding": {
+                  "color": {"value": "#b30000"}, 
+                  "x": {
+                      "aggregate": "max", 
+                      "field": "DailyCigarettes",
+                      "type": "quantitative",
+                      "title": "Daily Average Cigarette Consumption per Person"
+                  },
+                  "y": {
+                      "field": "Country",
+                      "type": "nominal",
+                      "sort": "-x"
+                  }
+                },
+                "layer": [{"mark": {"type": "bar"},
+                                    "encoding": 
+                                      {"tooltip": [{"field": "Country", "type":"nominal"},
+                                                   {"field": "Region", "type": "nominal"},
+                                                   {"field": "Year", "type": "ordinal"},
+                                                   {"field": "DailyCigarettes", "type": "quantitative",
+                                                        "format": ".1f", "title": "Daily Average Cigarettes per Person"},
+                                                   {"field": "SmokersTotal", "type": "quantitative", 
+                                                        "title": "Total Smokers"}]}}, 
+            
+                          {"mark": {"type": "text",
+                                    "align": "left",
+                                    "dx": 1},
+                                    "encoding":{"text": {"field": "DailyCigarettes", 
+                                                "type":"quantitative",
+                                                "format": ".1f"},
+                                                "color": {"value": "#000000"}}
+                        }] 
+            }
+        ]
+    }
+
+    ]
+}
