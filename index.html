@@ -13,13 +13,14 @@
     integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- File -->
+  <link rel="stylesheet" type="text/css" href="css/dv2_style.css" media="all">
+
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 
-  <!-- File -->
-  <link rel="stylesheet" type="text/css" href="css/dv2_style.css" media="all">
 
 
 </head>
@@ -32,9 +33,9 @@
                 <p style="text-align:center"> The act of smoking cigarettes is harmful, causing many kinds of detrimental effects to the health of smokers. Despite this, a lot of people worldwide light up and smoke several cigarettes daily.</p>
                 <h3 style="text-align:center"> What does the smoking habit look like for all the countries in the whole world, over time? </h3>
                 <hr>
-                <h3 style="text-align:center"> Global Metrics </h3>
+                <h2 style="text-align:center"> Global Metrics </h2>
                 
-                <p style="text-align:center; font-size: 12px;"> Interact with the <b>region selector</b> to view the corresponding top 10 metrics for a specific region, and the <b>year slider</b> to view the three diagrams below corresponding to a year from 1980 to 2012.</p>
+                <p style="text-align:center; font-size: 14px; opacity:75%"> Interact with the <b>region selector</b> to view the corresponding top 10 metrics for a specific region, and the <b>year slider</b> to view the three diagrams below corresponding to a year from 1980 to 2012.</p>
                 
                 <div style="display:block; padding-top:10px; padding-bottom:10px; border: maroon; border: 1px; border-style: solid; text-align: center;" 
                 id="viz1" class="viz-holder"></div>
@@ -43,20 +44,20 @@
 
         <div class="pure-g">
             <div class="pure-u-1-1">
-                <h3 style="padding-left: 15px;">
+                <h3 style="padding-left: 15px; text-align:center">
                     Observations Include:
                 </h3>
                 <ul>
-                    <li> Globally overall, the <b>portion of smoking populations seem to have dropped over the years</b>. </li>
-                    <li> A high amount of countries with the top 10 <b>highest smoking prevalences</b> yearly are <b>located in Europe</b>. </li> 
-                    <li> <b>Suriname</b> (South America) smokers, smoke the most amount of cigarettes on average since 1989, and they consistently <b>smoke more than 100 cigarettes</b> daily on average from 1980 to 2012! </li>
+                    <li> Globally overall, the <b>portion of smoking populations dropped over the years</b>. </li>
+                    <li> A high amount of countries with the top 10 <b>highest smoking prevalences</b> yearly are <b>in Europe</b>. </li> 
+                    <li> <b>Suriname</b> smokers <b>smoke more than 100 cigarettes</b> daily on average from 1980 to 2012, consistently being #1 since 1989. </li>
                 </ul>
+                <hr>
             </div>
         </div>
-        <hr>
-        <div class="pure-g" style="padding-bottom: 20px;">
+        <div class="pure-g" style="padding-bottom: 20px; background-color: #f0f0f0;">
             <div class="pure-u-1-1">
-                <h3 style="text-align:center"> Region Comparison </h3>
+                <h2 style="text-align:center"> Region Comparison </h2>
             </div>
             <div class="pure-u-2-3">
                 <div style="display:block; padding-top:10px; padding-bottom:10px; border: maroon; border: 1px; border-style: solid; text-align: center;" 
@@ -64,30 +65,26 @@
             </div>
             <div class="pure-u-1-3">
                 <p style="padding:10px;"> The two charts to the left showcase each region's countries' <b>average daily cigarette consumption per smoker</b>.</p>
-                <p style="padding:10px;"> The line chart of region averages is a total naive average of the metric, by the number of countries in the region. </p>
+                <p style="padding:10px;"> The line chart of region averages utilises the mean value. </p>
+                
                 <h3 style="padding: 10px;">
                     What does this tell?
                 </h3>
                 <ul style="padding:25px;">
                     <li>The <b>worldwide average daily cigarette consumption</b> by a smoker has <b>very slightly dropped</b> over the three decades.</li>
                     <li><b>All regions of the world</b> have <b>dropped, or maintained</b> their average daily smokers' cigarette intake.</li>
-                    <li>The average smoker in Europe and Americas recently would smoke noticeably more cigarettes on average in a day, than the worldwide average.</li>
-                    <li>Asia's average cigarette consumption is not too far off of the world average.</li>
-                    <li>Oceania's and Africa's average cigarette counts are below the world average, with the latter not exceeding the world average in both mean and median metrics.</li>
+                    <li>By 2012, smokers in the <b> Americas and Europe </b> smoke the most on average daily, followed by Asia, Oceania and Africa.</li>
                 </ul>
 
-                <p style="padding:10px;"> Do note that some regions (i.e. The Americas) have countries that are considered outliers, as their citizens consume a very high amount of cigarettes daily on average.</p>
+                <p style="padding:10px; font-size: 14px; opacity:65%"> Do note that some outliers exist, due to the countries' smokers' very high daily average cigarette consumption. The existence of outliers may skew mean metrics.</p>
             </div>
         </div>
         <hr>
         <div class="pure-g">
             <div class="pure-u-1-1">
-                <h3 style="text-align:center"> Explore the Countries </h3>
-                <ul>
-                    <li>View data over the years on daily average cigarette intake and the portion and amount of population that smokes in any country you desire.</li>
-                    <li>Values on the years 1982, 1992, 2002 and 2012 are annotated to highlight the evolution over decades, though each year still will have their tooltips.</li>
-                    <li>Interact with the country selector to select a country.</li>
-                </ul>
+                <h2 style="text-align:center"> Explore the Countries </h2>
+                <p style="text-align:center">Use the country selector to view data on any country you desire.</p>
+                <p style="text-align:center">Values on the years 1982, 1992, 2002 and 2012 are annotated to show evolution over time, alongside hovered tooltips.</p>
                 <div style="display:block; padding-top:15px; padding-bottom:15px; border: maroon; border: 1px; border-style: solid; text-align: center;" 
                 id="viz3" class="viz-holder"></div>
             </div>

@@ -60,6 +60,15 @@
         },
         "mark": {"type": "geoshape", "fill": "skyblue"}
       },
+      {
+        "data": {
+          "url":
+          "https://raw.githubusercontent.com/eahm0005/FIT3179DV2/main/graticules.json",
+          "format": {"type": "topojson", "feature":
+          "ne_110m_graticules_30"}
+          },
+          "mark": {"type": "geoshape", "fill": null, "stroke": "lightgrey"}
+      },
       { "mark": {"type": "geoshape", "stroke": "grey"},
         "data": {
         "url": "https://raw.githubusercontent.com/eahm0005/FIT3179DV2/main/smoking_DV2_editedregions.csv"

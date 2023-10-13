@@ -49,6 +49,7 @@
      "transform": [
       {"filter": "datum.Year == yearselect"}
      ],
+     "height": {"step": 30, "for":"position"},
      "layer": [{
      "mark": {"type": "boxplot"},
      "encoding": {
@@ -84,8 +85,8 @@
         "type": "text",
         "align": "right",
         "baseline": "bottom",
-        "dx": -200,
-        "dy": -100,
+        "dx": -160,
+        "dy": 35,
         "y":"height",
         "text": "Red Line = Global Median",
         "fontWeight":100
